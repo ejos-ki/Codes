@@ -1,0 +1,942 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
+package oop_project;
+
+import java.io.*;
+import java.util.ArrayList;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+/**
+ *
+ * @author Acer
+ */
+
+public class DATABASE extends javax.swing.JFrame {
+    
+    public static Object[][] facultyData;
+    public static Object[][] studentData;
+    
+    // Getter method for accessing faculty data
+    public Object[][] getFacultyData() {
+        // If not initialized, fetch data from the table and store it in the static variable
+        if (facultyData == null) {
+            int rows = FACULTYDATA.getRowCount();
+            int cols = FACULTYDATA.getColumnCount();
+            facultyData = new Object[rows][cols];
+
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < cols; j++) {
+                    facultyData[i][j] = FACULTYDATA.getValueAt(i, j);
+                }
+            }
+        }
+        return facultyData;
+    }
+
+    // Getter method for accessing student data
+    public Object[][] getStudentData() {
+        // If not initialized, fetch data from the table and store it in the static variable
+        if (studentData == null) {
+            int rows = STUDENTDATA.getRowCount();
+            int cols = STUDENTDATA.getColumnCount();
+            studentData = new Object[rows][cols];
+
+            for (int i = 0; i < rows; i++) {
+                for (int j = 0; j < cols; j++) {
+                    studentData[i][j] = STUDENTDATA.getValueAt(i, j);
+                }
+            }
+        }
+        return studentData;
+    }
+    
+    /**
+     * Creates new form DATABASE
+     */
+    public DATABASE() {
+        initComponents();
+        loadSavedData();
+        FAC.doClick();
+    }
+
+    public void loadSavedData() {
+        loadFacultyData("FACULTY_ACCOUNT.txt", FACULTYDATA);
+        loadStudentData("STUDENT_ACCOUNT.txt", STUDENTDATA);
+    }
+
+    private void loadFacultyData(String fileName, javax.swing.JTable table) {
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            DefaultTableModel model = (DefaultTableModel) table.getModel();
+            model.setRowCount(0); // Clear the table before loading new data
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split("\t");
+                model.addRow(data);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void loadStudentData(String fileName, javax.swing.JTable table) {
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            DefaultTableModel model = (DefaultTableModel) table.getModel();
+            model.setRowCount(0); // Clear the table before loading new data
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] data = line.split("\t");
+                model.addRow(data);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void saveDataToFile(Object[][] data, String filename) {
+        try (PrintWriter writer = new PrintWriter(filename)) {
+            for (Object[] row : data) {
+                StringBuilder rowString = new StringBuilder();
+                for (Object cell : row) {
+                    rowString.append(cell).append("\t");
+                }
+                writer.println(rowString.toString().trim());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void updateFacultyData() {
+        int rows = FACULTYDATA.getRowCount();
+        int cols = FACULTYDATA.getColumnCount();
+        facultyData = new Object[rows][cols];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                facultyData[i][j] = FACULTYDATA.getValueAt(i, j);
+            }
+        }
+    }
+
+    private void updateStudentData() {
+        int rows = STUDENTDATA.getRowCount();
+        int cols = STUDENTDATA.getColumnCount();
+        studentData = new Object[rows][cols];
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                studentData[i][j] = STUDENTDATA.getValueAt(i, j);
+            }
+        }
+    }
+
+    private boolean isUserIDExists(DefaultTableModel model, String userID) {
+        for (int i = 0; i < model.getRowCount(); i++) {
+            if (model.getValueAt(i, 2).equals(userID)) {
+                return true; // If USERID already exists, return true
+            }
+        }
+        return false; // USERID does not exist
+    }
+    
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        LOGOUT = new javax.swing.JButton();
+        FIRSTNAME = new javax.swing.JTextField();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel3 = new javax.swing.JLabel();
+        ID = new javax.swing.JTextField();
+        IDLABEL = new javax.swing.JLabel();
+        LASTNAME = new javax.swing.JTextField();
+        LASTNAMELABEL = new javax.swing.JLabel();
+        PASSLABEL = new javax.swing.JLabel();
+        PASS = new javax.swing.JTextField();
+        COURSE = new javax.swing.JTextField();
+        COURSELABEL = new javax.swing.JLabel();
+        FAC = new javax.swing.JRadioButton();
+        STUD = new javax.swing.JRadioButton();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        LAYER = new javax.swing.JLayeredPane();
+        PANELSTUD = new javax.swing.JPanel();
+        UPDATE = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        STUDLABEL = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        STUDENTDATA = new javax.swing.JTable();
+        STUDDELETE = new javax.swing.JButton();
+        PANELFAC = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        FACULTYDATA = new javax.swing.JTable();
+        FACDELETE = new javax.swing.JButton();
+        UPDATE1 = new javax.swing.JButton();
+        FACLABEL = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jSeparator2 = new javax.swing.JSeparator();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("StudentGradingSystem");
+        setBackground(new java.awt.Color(0, 153, 153));
+        setLocation(new java.awt.Point(270, 50));
+        setResizable(false);
+
+        jPanel1.setBackground(new java.awt.Color(0, 153, 153));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel1.setText("    USER DATABASE");
+
+        LOGOUT.setBackground(new java.awt.Color(0, 102, 102));
+        LOGOUT.setForeground(new java.awt.Color(255, 255, 255));
+        LOGOUT.setText("LOG OUT");
+        LOGOUT.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 2, true));
+        LOGOUT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LOGOUTActionPerformed(evt);
+            }
+        });
+
+        jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
+
+        jLabel3.setText("FIRSTNAME :");
+
+        ID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IDActionPerformed(evt);
+            }
+        });
+
+        IDLABEL.setText("USER ID :");
+
+        LASTNAME.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LASTNAMEActionPerformed(evt);
+            }
+        });
+
+        LASTNAMELABEL.setText("LASTNAME :");
+
+        PASSLABEL.setText("PASSWORD :");
+
+        COURSELABEL.setText("COURSE :");
+
+        buttonGroup1.add(FAC);
+        FAC.setText("FACULTY");
+        FAC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FACActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(STUD);
+        STUD.setText("STUDENT");
+        STUD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                STUDActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oop_project/icons8-plasmid-40.png"))); // NOI18N
+
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("STUDENT GRADING SYSTEM");
+
+        PANELSTUD.setBackground(new java.awt.Color(0, 153, 153));
+
+        UPDATE.setBackground(new java.awt.Color(0, 153, 153));
+        UPDATE.setForeground(new java.awt.Color(255, 255, 255));
+        UPDATE.setText("UPDATE");
+        UPDATE.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 3, true));
+        UPDATE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UPDATEActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oop_project/icons8-student-40.png"))); // NOI18N
+
+        STUDLABEL.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        STUDLABEL.setText("    STUDENT");
+
+        STUDENTDATA.setBackground(new java.awt.Color(204, 255, 255));
+        STUDENTDATA.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "LASTNAME", "FIRSTNAME", "USER ID", "PASSWORD"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(STUDENTDATA);
+
+        STUDDELETE.setBackground(new java.awt.Color(0, 153, 153));
+        STUDDELETE.setForeground(new java.awt.Color(255, 255, 255));
+        STUDDELETE.setText("DELETE");
+        STUDDELETE.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 3, true));
+        STUDDELETE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                STUDDELETEActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout PANELSTUDLayout = new javax.swing.GroupLayout(PANELSTUD);
+        PANELSTUD.setLayout(PANELSTUDLayout);
+        PANELSTUDLayout.setHorizontalGroup(
+            PANELSTUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PANELSTUDLayout.createSequentialGroup()
+                .addContainerGap(171, Short.MAX_VALUE)
+                .addComponent(STUDLABEL, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addGap(279, 279, 279)
+                .addComponent(STUDDELETE, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(UPDATE, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(211, 211, 211))
+            .addGroup(PANELSTUDLayout.createSequentialGroup()
+                .addGap(179, 179, 179)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 603, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        PANELSTUDLayout.setVerticalGroup(
+            PANELSTUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PANELSTUDLayout.createSequentialGroup()
+                .addGroup(PANELSTUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(PANELSTUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(PANELSTUDLayout.createSequentialGroup()
+                            .addGap(45, 45, 45)
+                            .addGroup(PANELSTUDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(UPDATE, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(STUDDELETE, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(STUDLABEL, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(PANELSTUDLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jLabel2)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(55, Short.MAX_VALUE))
+        );
+
+        PANELFAC.setBackground(new java.awt.Color(0, 153, 153));
+
+        FACULTYDATA.setBackground(new java.awt.Color(204, 255, 255));
+        FACULTYDATA.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "LASTNAME", "FIRSTNAME", "USER ID", "PASSWORD", "COURSE"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        FACULTYDATA.setGridColor(new java.awt.Color(255, 255, 255));
+        jScrollPane1.setViewportView(FACULTYDATA);
+
+        FACDELETE.setBackground(new java.awt.Color(0, 153, 153));
+        FACDELETE.setForeground(new java.awt.Color(255, 255, 255));
+        FACDELETE.setText("DELETE");
+        FACDELETE.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 3, true));
+        FACDELETE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FACDELETEActionPerformed(evt);
+            }
+        });
+
+        UPDATE1.setBackground(new java.awt.Color(0, 153, 153));
+        UPDATE1.setForeground(new java.awt.Color(255, 255, 255));
+        UPDATE1.setText("UPDATE");
+        UPDATE1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 3, true));
+        UPDATE1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UPDATE1ActionPerformed(evt);
+            }
+        });
+
+        FACLABEL.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        FACLABEL.setText("   FACULTY");
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/oop_project/icons8-teacher-40.png"))); // NOI18N
+
+        javax.swing.GroupLayout PANELFACLayout = new javax.swing.GroupLayout(PANELFAC);
+        PANELFAC.setLayout(PANELFACLayout);
+        PANELFACLayout.setHorizontalGroup(
+            PANELFACLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PANELFACLayout.createSequentialGroup()
+                .addGap(176, 176, 176)
+                .addGroup(PANELFACLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(PANELFACLayout.createSequentialGroup()
+                        .addComponent(FACLABEL, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(FACDELETE, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(UPDATE1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(23, 23, 23)))
+                .addContainerGap(186, Short.MAX_VALUE))
+        );
+        PANELFACLayout.setVerticalGroup(
+            PANELFACLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PANELFACLayout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addGroup(PANELFACLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(FACLABEL, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(PANELFACLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(PANELFACLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(FACDELETE, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(UPDATE1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel4)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(51, Short.MAX_VALUE))
+        );
+
+        LAYER.setLayer(PANELSTUD, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        LAYER.setLayer(PANELFAC, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout LAYERLayout = new javax.swing.GroupLayout(LAYER);
+        LAYER.setLayout(LAYERLayout);
+        LAYERLayout.setHorizontalGroup(
+            LAYERLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(PANELSTUD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(LAYERLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(PANELFAC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        LAYERLayout.setVerticalGroup(
+            LAYERLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(PANELSTUD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(LAYERLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(LAYERLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(PANELFAC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+
+        jSeparator2.setForeground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(124, 124, 124)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3)
+                    .addComponent(IDLABEL))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(FIRSTNAME, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                    .addComponent(ID))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(LASTNAMELABEL)
+                    .addComponent(PASSLABEL))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(LASTNAME, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                    .addComponent(PASS))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(FAC, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(STUD, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(COURSELABEL)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(COURSE, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(jLabel5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 696, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 696, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(51, 51, 51)
+                .addComponent(LOGOUT, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(140, 140, 140))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(LAYER, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(11, 11, 11)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addComponent(jLabel6)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LOGOUT))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(LASTNAME, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(LASTNAMELABEL)
+                        .addComponent(FIRSTNAME, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3)
+                        .addComponent(COURSE, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(COURSELABEL)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ID, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(IDLABEL)
+                    .addComponent(PASSLABEL)
+                    .addComponent(PASS, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(FAC)
+                    .addComponent(STUD))
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(LAYER, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        pack();
+        setLocationRelativeTo(null);
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void UPDATE1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UPDATE1ActionPerformed
+        String userId = ID.getText();
+        String password = PASS.getText();
+        String firstName = FIRSTNAME.getText();
+        String lastName = LASTNAME.getText();
+        String course = COURSE.getText();
+
+        if (userId.isEmpty() || password.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || course.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please complete all the fields");
+        } else {
+            DefaultTableModel model = (DefaultTableModel) FACULTYDATA.getModel();
+
+            if (isUserIDExists(model, userId)) {
+                JOptionPane.showMessageDialog(this, "USERID already exists. Please use a different one.");
+            } else {
+                Object[] row = {lastName, firstName, userId, password, course};
+                model.addRow(row);
+
+                // Call the update method after modifying the table
+                updateFacultyData();
+
+                // Save the updated data to the file
+                saveDataToFile(getFacultyData(), "FACULTY_ACCOUNT.txt");
+
+                ID.setText("");
+                PASS.setText("");
+                FIRSTNAME.setText("");
+                LASTNAME.setText("");
+                COURSE.setText("");
+            }
+        }
+    }//GEN-LAST:event_UPDATE1ActionPerformed
+
+    private void FACDELETEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FACDELETEActionPerformed
+        DefaultTableModel model = (DefaultTableModel) FACULTYDATA.getModel();
+        int[] rows = FACULTYDATA.getSelectedRows();
+
+        if (rows.length > 0) {
+            for (int i = rows.length - 1; i >= 0; i--) {
+                model.removeRow(rows[i]);
+            }
+
+            // Call the update method after modifying the table
+            updateFacultyData();
+
+            // Save the updated data to the file
+            saveDataToFile(getFacultyData(), "FACULTY_ACCOUNT.txt");
+
+            // Read user IDs from FACULTY_ACCOUNT.txt
+            ArrayList<String> facultyUserIDs = readUserIDs(1);
+
+            // Remove non-existing user IDs from record
+            removeDATAon_PERCEITEM(facultyUserIDs);
+            removeDATAon_SEM1DAT(facultyUserIDs, 1);
+            removeDATAon_SEM2DAT(facultyUserIDs, 1);
+            
+            JOptionPane.showMessageDialog(this, "Data successfully removed from the list.");
+        } else {
+            JOptionPane.showMessageDialog(this, "No Data found. Please select a Row.");
+        }
+    }//GEN-LAST:event_FACDELETEActionPerformed
+
+    private void UPDATEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UPDATEActionPerformed
+        String userId = ID.getText();
+        String password = PASS.getText();
+        String firstName = FIRSTNAME.getText();
+        String lastName = LASTNAME.getText();
+
+        if (userId.isEmpty() || password.isEmpty() || firstName.isEmpty() || lastName.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please specify all the data");
+        } else {
+            DefaultTableModel model = (DefaultTableModel) STUDENTDATA.getModel();
+
+            if (isUserIDExists(model, userId)) {
+                JOptionPane.showMessageDialog(this, "USERID already exists. Please use a different one.");
+            } else {
+                Object[] row = {lastName, firstName, userId, password};
+                model.addRow(row);
+
+                // Call the update method after modifying the table
+                updateStudentData();
+
+                // Save the updated data to the file
+                saveDataToFile(getStudentData(), "STUDENT_ACCOUNT.txt");
+
+                ID.setText("");
+                PASS.setText("");
+                FIRSTNAME.setText("");
+                LASTNAME.setText("");
+            }
+        }
+    }//GEN-LAST:event_UPDATEActionPerformed
+
+    private void STUDDELETEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_STUDDELETEActionPerformed
+        DefaultTableModel model = (DefaultTableModel) STUDENTDATA.getModel();
+        int[] rows = STUDENTDATA.getSelectedRows();
+
+        if (rows.length > 0) {
+            for (int i = rows.length - 1; i >= 0; i--) {
+                model.removeRow(rows[i]);
+            }
+
+            // Call the update method after modifying the table
+            updateStudentData();
+
+            // Save the updated data to the file
+            saveDataToFile(getStudentData(), "STUDENT_ACCOUNT.txt");
+
+            // Read user IDs from FACULTY_ACCOUNT.txt
+            ArrayList<String> studentUserIDs = readUserIDs(2);
+            removeDATAon_SEM1DAT(studentUserIDs, 2);
+            removeDATAon_SEM2DAT(studentUserIDs, 2);
+            
+            JOptionPane.showMessageDialog(this, "Data successfully removed from the list.");
+        } else {
+            JOptionPane.showMessageDialog(this, "No Data found. Please select a Row.");
+        }
+    }//GEN-LAST:event_STUDDELETEActionPerformed
+
+    private void STUDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_STUDActionPerformed
+        PANELSTUD.setVisible(false);
+        PANELSTUD.setVisible(true);
+        COURSE.setEnabled(false);
+        COURSE.setText("");
+    }//GEN-LAST:event_STUDActionPerformed
+
+    private void FACActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FACActionPerformed
+        PANELSTUD.setVisible(true);
+        PANELSTUD.setVisible(false);
+        COURSE.setEnabled(true);
+    }//GEN-LAST:event_FACActionPerformed
+
+    private void LASTNAMEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LASTNAMEActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_LASTNAMEActionPerformed
+
+    private void IDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_IDActionPerformed
+
+    private void LOGOUTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LOGOUTActionPerformed
+        // Save data to text files
+        saveDataToFile(getStudentData(), "STUDENT_ACCOUNT.txt");
+        saveDataToFile(getFacultyData(), "FACULTY_ACCOUNT.txt");
+
+        dispose(); // Close the current STUDENT frame
+        // Open the FACADE frame
+        java.awt.EventQueue.invokeLater(() -> new FACADE().setVisible(true));
+    }//GEN-LAST:event_LOGOUTActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(DATABASE.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(DATABASE.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(DATABASE.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(DATABASE.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                DATABASE database = new DATABASE();
+                database.setVisible(true);
+
+                 database.loadSavedData();
+                // Simulate the FAC button click
+                database.FAC.doClick();
+            }
+        });
+    }
+
+    private ArrayList<String> readUserIDs(int set) {
+        ArrayList<String> UserIDs = new ArrayList<>();
+
+        try {
+            File File;
+            
+            if(set == 1){
+                File = new File("FACULTY_ACCOUNT.txt");
+            }else{
+                File = new File("STUDENT_ACCOUNT.txt");
+            }
+                
+            if (!File.exists()) {
+                System.out.println("File does not exist.");
+                return UserIDs;
+            }
+
+            BufferedReader reader = new BufferedReader(new FileReader(File));
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split("\\s+");
+                if(set == 1){
+                    if (parts.length >= 4) {
+                        UserIDs.add(parts[2]); // Assuming USERID is at index 2
+                    }
+                }else{
+                    if (parts.length >= 3) {
+                        UserIDs.add(parts[2]); // Assuming USERID is at index 2
+                    }
+                }
+                
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return UserIDs;
+    }
+    
+    private void removeDATAon_PERCEITEM(ArrayList<String> facultyUserIDs) {
+        try {
+            File file = new File("PERCE_ITEMS.txt");
+            if (!file.exists()) {
+                System.out.println("PERCE_ITEMS file does not exist.");
+                return;
+            }
+
+            File tempFile = new File("TEMP_PERCE_ITEMS.txt");
+            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split("\\s+");
+
+                // Check if USERID exists in facultyUserIDs list
+                if (parts.length > 0 && facultyUserIDs.contains(parts[0])) {
+                    writer.write(line + "\n");
+                }
+            }
+
+            reader.close();
+            writer.close();
+
+            // Delete the original file
+            if (!file.delete()) {
+                System.out.println("Failed to delete the file.");
+                return;
+            }
+
+            // Rename the temporary file to the original file name
+            if (!tempFile.renameTo(file)) {
+                System.out.println("Failed to rename the file.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void removeDATAon_SEM1DAT(ArrayList<String> id, int set) {
+        try {
+            File file = new File("SEM1DAT.txt");
+            if (!file.exists()) {
+                System.out.println("File does not exist.");
+                return;
+            }
+
+            File tempFile = new File("TEMP_SEM1DAT.txt");
+            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split("\\s+");
+                if ((set == 1 && parts.length > 0 && id.contains(parts[0])) || (set != 1 && parts.length > 3 && id.contains(parts[3]))) {
+                    writer.write(line + "\n");
+                }else {
+                    System.out.println("Didn't match criteria: " + line); // Add this line for debugging
+                }
+            }
+
+            reader.close();
+            writer.close();
+
+            // Delete the original file
+            if (!file.delete()) {
+                System.out.println("Failed to delete the file.");
+                return;
+            }
+
+            // Rename the temporary file to the original file name
+            if (!tempFile.renameTo(file)) {
+                System.out.println("Failed to rename the file.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void removeDATAon_SEM2DAT(ArrayList<String> id, int set) {
+        try {
+            File file = new File("SEM2DAT.txt");
+            if (!file.exists()) {
+                System.out.println("File does not exist.");
+                return;
+            }
+
+            File tempFile = new File("TEMP_SEM2DAT.txt");
+            BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split("\\s+");
+                if ((set == 1 && parts.length > 0 && id.contains(parts[0])) || (set != 1 && parts.length > 3 && id.contains(parts[3]))) {
+                    writer.write(line + "\n");
+                }else {
+                System.out.println("Didn't match criteria: " + line); // Add this line for debugging
+                }
+            }
+
+            reader.close();
+            writer.close();
+
+            // Delete the original file
+            if (!file.delete()) {
+                System.out.println("Failed to delete the file.");
+                return;
+            }
+
+            // Rename the temporary file to the original file name
+            if (!tempFile.renameTo(file)) {
+                System.out.println("Failed to rename the file.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField COURSE;
+    private javax.swing.JLabel COURSELABEL;
+    private javax.swing.JRadioButton FAC;
+    private javax.swing.JButton FACDELETE;
+    private javax.swing.JLabel FACLABEL;
+    private javax.swing.JTable FACULTYDATA;
+    private javax.swing.JTextField FIRSTNAME;
+    private javax.swing.JTextField ID;
+    private javax.swing.JLabel IDLABEL;
+    private javax.swing.JTextField LASTNAME;
+    private javax.swing.JLabel LASTNAMELABEL;
+    private javax.swing.JLayeredPane LAYER;
+    private javax.swing.JButton LOGOUT;
+    private javax.swing.JPanel PANELFAC;
+    private javax.swing.JPanel PANELSTUD;
+    private javax.swing.JTextField PASS;
+    private javax.swing.JLabel PASSLABEL;
+    private javax.swing.JRadioButton STUD;
+    private javax.swing.JButton STUDDELETE;
+    private javax.swing.JTable STUDENTDATA;
+    private javax.swing.JLabel STUDLABEL;
+    private javax.swing.JButton UPDATE;
+    private javax.swing.JButton UPDATE1;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    // End of variables declaration//GEN-END:variables
+}
